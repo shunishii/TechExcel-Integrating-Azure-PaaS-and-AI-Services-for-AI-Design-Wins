@@ -70,7 +70,10 @@ public class DatabaseService : IDatabaseService
 
     [KernelFunction]
     [Description("Get all bookings by each hotel and minimum date.")]
-    public async Task<IEnumerable<Booking>> GetBookingsByHotelAndMinimumDate(int hotelId, DateTime dt)
+    public async Task<IEnumerable<Booking>> GetBookingsByHotelAndMinimumDate(
+        [Description("The ID of the hotel")] int hotelId,
+        [Description("The Date to begin staying")] DateTime dt
+        )
     {
         var sql = "SELECT BookingID, CustomerID, HotelID, StayBeginDate, StayEndDate, NumberOfGuests FROM dbo.Booking WHERE HotelID = @HotelID AND StayBeginDate >= @StayBeginDate";
         using var conn = new SqlConnection(
